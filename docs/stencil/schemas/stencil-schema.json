@@ -1,0 +1,219 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SugarStencilSpecification",
+  "description": "JSON Schema governing engineering and software stencils for Purity for Sugar modules, derived from Sugar's Help Book.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "version",
+    "source",
+    "status",
+    "purpose",
+    "engineeringBasis",
+    "inputs",
+    "calculatedFields",
+    "equations",
+    "validationRules",
+    "crossChecks"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique stencil identifier (e.g., STENCIL-EVAP-01, STENCIL-PAN-01)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Engineering module display name"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(\\.\\d+)?$"
+    },
+    "source": {
+      "type": "string",
+      "description": "Authoritative citation in Sugar's Help Book or literature"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "DISCOVERED",
+        "DRAFT",
+        "ENGINEERING-VALIDATED",
+        "UI-READY",
+        "IMPLEMENTED",
+        "TESTED",
+        "APPROVED"
+      ]
+    },
+    "purpose": {
+      "type": "string",
+      "description": "Operational scope, physical boundary, and transformation definition"
+    },
+    "equipmentType": {
+      "type": "string",
+      "description": "Associated equipment stencil or station code (e.g., Type 9 Evaporator, Type 14 Pan)"
+    },
+    "engineeringBasis": {
+      "type": "object",
+      "required": ["governingTheories", "assumptions"],
+      "properties": {
+        "governingTheories": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "constants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["symbol", "name", "value", "unit", "source"],
+            "properties": {
+              "symbol": { "type": "string" },
+              "name": { "type": "string" },
+              "value": { "type": ["number", "string"] },
+              "unit": { "type": "string" },
+              "source": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "ports": {
+      "type": "object",
+      "properties": {
+        "inlets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "acceptableMedia"],
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "acceptableMedia": { "type": "array", "items": { "type": "string" } },
+              "required": { "type": "boolean" }
+            }
+          }
+        },
+        "outlets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "category"],
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "category": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "category", "dataType", "unit"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "category": {
+            "type": "string",
+            "enum": ["REQUIRED", "OPTIONAL", "DROPDOWN", "REFERENCE", "MODE_SWITCH"]
+          },
+          "dataType": {
+            "type": "string",
+            "enum": ["number", "string", "boolean", "select"]
+          },
+          "unit": { "type": "string" },
+          "defaultValue": { "type": ["number", "string", "boolean", "null"] },
+          "options": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "engineeringLimits": {
+            "type": "object",
+            "properties": {
+              "min": { "type": "number" },
+              "max": { "type": "number" },
+              "warnMin": { "type": "number" },
+              "warnMax": { "type": "number" }
+            }
+          },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "calculatedFields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "unit", "formula", "dependencies"],
+        "properties": {
+          "id": { "type": "string" },
+          "label": { "type": "string" },
+          "isIntermediate": { "type": "boolean" },
+          "unit": { "type": "string" },
+          "precision": { "type": "integer" },
+          "formula": { "type": "string" },
+          "formulaId": { "type": "string" },
+          "dependencies": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "expectedRange": { "type": "string" },
+          "crossCheck": { "type": "string" }
+        }
+      }
+    },
+    "equations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "latex", "variables", "source"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "latex": { "type": "string" },
+          "variables": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
+          "conditions": { "type": "string" },
+          "source": { "type": "string" }
+        }
+      }
+    },
+    "validationRules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["fieldId", "ruleType", "condition", "severity", "message"],
+        "properties": {
+          "fieldId": { "type": "string" },
+          "ruleType": { "type": "string", "enum": ["RANGE", "RELATION", "REQUIRED", "CONSISTENCY"] },
+          "condition": { "type": "string" },
+          "severity": { "type": "string", "enum": ["ERROR", "WARNING", "INFO"] },
+          "message": { "type": "string" }
+        }
+      }
+    },
+    "crossChecks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "relationship", "tolerance", "passCondition", "failCondition"],
+        "properties": {
+          "name": { "type": "string" },
+          "relationship": { "type": "string" },
+          "tolerance": { "type": "string" },
+          "passCondition": { "type": "string" },
+          "failCondition": { "type": "string" }
+        }
+      }
+    }
+  }
+}

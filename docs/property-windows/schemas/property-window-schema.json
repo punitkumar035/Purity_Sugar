@@ -1,0 +1,166 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SugarPropertyWindowSpecification",
+  "type": "object",
+  "required": [
+    "objectType",
+    "title",
+    "stencilId",
+    "engineeringBasis",
+    "sections"
+  ],
+  "properties": {
+    "objectType": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "stencilId": {
+      "type": "string"
+    },
+    "engineeringBasis": {
+      "type": "string"
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "fields"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "label",
+                "classification",
+                "type"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "classification": {
+                  "type": "string",
+                  "enum": [
+                    "USER_INPUT",
+                    "OPTIONAL_INPUT",
+                    "DROPDOWN",
+                    "REFERENCE",
+                    "CALCULATED",
+                    "INTERMEDIATE",
+                    "READ_ONLY",
+                    "BOOLEAN",
+                    "STATUS",
+                    "WARNING",
+                    "ERROR"
+                  ]
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "number",
+                    "string",
+                    "boolean",
+                    "select"
+                  ]
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "editable": {
+                  "type": "boolean"
+                },
+                "required": {
+                  "type": "boolean"
+                },
+                "defaultValue": {},
+                "options": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "precision": {
+                  "type": "integer"
+                },
+                "min": {
+                  "type": "number"
+                },
+                "max": {
+                  "type": "number"
+                },
+                "formula": {
+                  "type": "string"
+                },
+                "dependencies": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "crossCheck": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "crossChecks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "expectedRelationship",
+          "tolerance",
+          "unit"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "expectedRelationship": {
+            "type": "string"
+          },
+          "tolerance": {
+            "type": "number"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "passCondition": {
+            "type": "string"
+          },
+          "warningCondition": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
