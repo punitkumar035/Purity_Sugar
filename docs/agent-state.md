@@ -9,6 +9,7 @@
 - Stencil & Property Window Engineering Elevation: **COMPLETE & AUDITED (100% of 24 Help Book Stations Authored) ✅**
 - Ribbon + Multi-Page Engineering Workspace: **COMPLETE & TESTED (10 Ribbon Tabs, PageManager, Sheet Frame, Zero Errors) ✅**
 - Active Project Directory: `C:\Users\punit\OneDrive\Documents\Purity_Sugar\Purity Project` 📁
+- GitHub Repository: [https://github.com/punitkumar035/Purity_Sugar](https://github.com/punitkumar035/Purity_Sugar) 🚀
 - Stencil Drag & Placement Architecture: **FIXED & TESTED (HTML5 Drag + Fallback + Double-Click) ✅**
 - Phase 05: Standalone Packaging & Release — **READY TO PROCEED 🚀**
 - Web Simulation: Full Sugar Factory Multi-Page Flowsheet Studio — **AVAILABLE & CONNECTED 🌐**
